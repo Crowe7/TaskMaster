@@ -20,6 +20,55 @@ header{
 header h1{
     margin-left: 50px;
 }
+
+
+.projects-menu {
+    height: 100%;
+    width: 300px;
+    background-color: rgb(102, 173, 231);
+
+}
+
+
+.home-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-bottom: 3px solid steelblue;
+    height: 150px;
+}
+
+
+.projects {
+    display: flex;
+    flex-direction: column;
+}
+
+.all-projects{
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    overflow-y: auto;
+}
+
+#newProject {
+    /* this is just for looks now */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.pro{
+    margin-top: 40px;
+}
+
+
+
+
+
+.content-wrapper{
+    display: flex;
+}
+
 .flex-wrapper{
     display: flex;
     flex: 1 0 auto;
