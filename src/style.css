@@ -61,9 +61,26 @@ header h1{
     margin-top: 40px;
 }
 
+.project-board{
+    display: flex;
+    margin-top: 40px;
+    border: 1px solid black;
+    justify-content: space-evenly;
+    /* this is so i can see */
+    width: 1000px;
 
-
-
+}
+.task-area{
+    display: flex;
+    gap: 20px;
+    height: 600px;
+    overflow-y: auto;
+    border: 1px solid black;
+    flex-direction: column;
+}
+.header-p{
+    border: 1px solid black;
+}
 
 .content-wrapper{
     display: flex;
