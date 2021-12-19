@@ -17,12 +17,24 @@ header{
     padding: 10px;
     font-size: 30px;
     color: white;
+    justify-content: space-between;
 }
 header h1{
     margin-left: 50px;
 }
 
-
+#newTask{
+    font-size: 24px;
+    color: white;
+    border: none;
+    background-color:inherit;
+    width: 150px;
+}
+#newTask:hover{
+    border-bottom: 3px solid lightskyblue;
+    color: rgb(218, 218, 218);
+    cursor: pointer;
+}
 .projects-menu {
     height: 100%;
     width: 300px;
@@ -73,7 +85,7 @@ header h1{
 
 #newProject {
     /* this is just for looks now */
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 30px;
 }
 

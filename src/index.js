@@ -1,6 +1,6 @@
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
 // <button id="project" class="pro">project</button> is the HTML for the actual made projects... appended to all projects
-
+//         <button id="newTask">New Task</button> apped to heaeer for adding tasks to any project. generate it when i load the project in
 
 
 
