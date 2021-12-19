@@ -9,6 +9,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     flex-direction: column;
     min-height: 100vh;
+    background-color: rgb(102, 173, 231);
 }
 header{
     display: flex;
@@ -26,6 +27,7 @@ header h1{
     height: 100%;
     width: 300px;
     background-color: rgb(102, 173, 231);
+    border-right: 3px solid steelblue;
 
 }
 
@@ -63,11 +65,8 @@ header h1{
 
 .project-board{
     display: flex;
-    margin-top: 40px;
-    border: 1px solid black;
-    justify-content: space-evenly;
-    /* this is so i can see */
-    width: 1000px;
+    margin: 40px;
+    gap: 20px;
 
 }
 .task-area{
@@ -75,15 +74,43 @@ header h1{
     gap: 20px;
     height: 600px;
     overflow-y: auto;
-    border: 1px solid black;
     flex-direction: column;
+    background-color: rgb(240, 239, 239);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    align-items: center;
 }
 .header-p{
-    border: 1px solid black;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgb(240, 239, 239);
+    padding: 5px;
+    width: 250px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
-
+.task {
+    font-size: 12px;
+    margin-top: 5px;
+    border: none;
+    background-color: white;
+    width: 90%;
+    padding: 20px;
+    text-align: left;
+    max-width: 225px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px steelblue;
+}
+.task:hover{
+    background-color: rgb(247, 247, 247);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px steelblue;
+}
 .content-wrapper{
     display: flex;
+
 }
 
 .flex-wrapper{
