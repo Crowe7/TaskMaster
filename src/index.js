@@ -1,6 +1,42 @@
+import {newProject} from "./dom";
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
 // <button id="project" class="pro">project</button> is the HTML for the actual made projects... appended to all projects
 //         <button id="newTask">New Task</button> apped to its wrapper for adding tasks to any project. generate it when i load the project iny
+
+newProject();
+// gonna have to put some storage functions in these later
+class Taskmaster {
+    Projects = [];
+    newProject(name) {
+        this.Projects.push(name);
+    }
+}
+let taskMaster = new Taskmaster;
+
+class Project {
+    Name = undefined;
+    Tasks = [];
+    newTask(name) {
+        this.Tasks.push(name);
+    }
+    pushToTaskmaster(name) {
+        taskMaster.newProject(name);
+    }
+
+}
+function makeProject(name) {
+    let project = new Project;
+    project.Name = name;
+    project.pushToTaskmaster(project);
+}
+
+//exporting taskmaster for testing purposes
+export {makeProject, taskMaster};
+/*let exProject = new Project;
+exProject.Name = 'exProject';
+console.log(exProject);
+exProject.pushToTaskmaster(exProject);
+console.log(taskMaster.Projects); */
 
 
 

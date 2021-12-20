@@ -169,7 +169,7 @@ input[type=text]{
 }
 #createProject:hover{
     background-color: lightskyblue;
-    border: 1px solid white;
+    border: 1px solid rgb(101, 196, 255);
 }
 #cancelProject:hover{
     background-color: rgb(253, 223, 228);

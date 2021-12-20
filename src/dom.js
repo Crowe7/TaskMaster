@@ -1,3 +1,4 @@
+import {makeProject, taskMaster} from "./index"
 /*                         <form id="input" class="title-input" action="">
                             <div class="project-form-input">
                                 <input type="text" id="pTitle" placeholder="What is the title of the Project?" required maxlength="40" >
@@ -16,12 +17,13 @@ function newProject() {
             <input type="text" id="pTitle" placeholder="What is the title of the Project?" required maxlength="40" >
         </div>
         <div class="submit-project">
-            <input type="submit" value="CREATE PROJECT" id="createProject" class="new-project-button">
+            <button type="button" id="createProject" class="new-project-button">CREATE PROJECT</button>
             <button type="button" id="cancelProject" class="new-project-button">CANCEL</button>
         </div>
     </form>`;
         newBtn.style.display = 'none';
         newProjectUI(projectZone, newBtn);
+        submitProject();
     });
 
 }
@@ -32,5 +34,29 @@ function newProjectUI(projectZone, newBtn) {
         newBtn.style.display = 'block';
     });
 }
-newProject();
-// export this to index and delete the script in html when done
+
+function makeProjectBtn(name){
+    let wrapper = document.querySelector('.all-projects');
+    let project = document.createElement('button');
+    project.setAttribute('id', 'project');
+    project.classList.add('pro');
+    wrapper.appendChild(project);
+    project.innerText = name;
+}
+function submitProject() {
+   let projectZone = document.getElementById('projectZone');
+   let newBtn = document.getElementById('newProject');
+   let createBtn = document.getElementById('createProject');
+   let projectName = document.getElementById('pTitle');
+   createBtn.addEventListener('click', () => {
+        makeProject(projectName.value);
+        makeProjectBtn(projectName.value);
+        projectZone.innerHTML = '';
+        newBtn.style.display = 'block';
+        console.log(taskMaster);
+   });
+
+}
+
+
+export {newProject};
