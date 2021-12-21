@@ -23,7 +23,9 @@ function newProject() {
     </form>`;
         newBtn.style.display = 'none';
         newProjectUI(projectZone, newBtn);
-        submitProject();
+        let createBtn = document.querySelector('#createProject');
+        console.log(createBtn);
+        createBtn.addEventListener('click', submitProject);
     });
 
 }
@@ -43,20 +45,29 @@ function makeProjectBtn(name){
     wrapper.appendChild(project);
     project.innerText = name;
 }
+
 function submitProject() {
-   let projectZone = document.getElementById('projectZone');
-   let newBtn = document.getElementById('newProject');
-   let createBtn = document.getElementById('createProject');
-   let projectName = document.getElementById('pTitle');
-   createBtn.addEventListener('click', () => {
+    let projectZone = document.getElementById('projectZone');
+    let newBtn = document.getElementById('newProject');
+    let projectName = document.getElementById('pTitle');
+    
+    if(projectName.value === "") {
+        alert("Name Can't Be Blank!");
+        return;
+    }
+    else {
+        for(let i = 0; i < taskMaster.Projects.length; i++) {
+            if(projectName.value === taskMaster.Projects[i].Name) {
+                alert('Project Already Exists!');
+                return;
+            }
+        }
         makeProject(projectName.value);
         makeProjectBtn(projectName.value);
         projectZone.innerHTML = '';
         newBtn.style.display = 'block';
         console.log(taskMaster);
-   });
-
-}
-
+    }
+} 
 
 export {newProject};

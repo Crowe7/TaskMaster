@@ -29,8 +29,6 @@ function makeProject(name) {
     project.Name = name;
     project.pushToTaskmaster(project);
 }
-
-//exporting taskmaster for testing purposes
 export {makeProject, taskMaster};
 /*let exProject = new Project;
 exProject.Name = 'exProject';
