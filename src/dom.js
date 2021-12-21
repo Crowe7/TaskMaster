@@ -1,13 +1,6 @@
 import {makeTask, makeProject, taskMaster} from "./index"
-/*                         <form id="input" class="title-input" action="">
-                            <div class="project-form-input">
-                                <input type="text" id="pTitle" placeholder="What is the title of the Project?" required maxlength="40" >
-                            </div>
-                            <div class="submit-project">
-                                <input type="submit" value="CREATE PROJECT" id="createProject" class="new-project-button">
-                                <button type="button" id="cancelProject" class="new-project-button">CANCEL</button>
-                            </div>
-                        </form> */
+
+
 function newProject() {
     let newBtn = document.getElementById('newProject');
     let projectZone = document.getElementById('projectZone');
@@ -44,6 +37,9 @@ function makeProjectBtn(name){
     project.classList.add('pro');
     wrapper.appendChild(project);
     project.innerText = name;
+
+    project.addEventListener('click', makeTaskUI);
+
 }
 
 function submitProject() {
@@ -69,5 +65,55 @@ function submitProject() {
         console.log(taskMaster);
     }
 } 
+
+function makeTaskUI() {
+    clearTaskUI();
+    let taskDiv = document.querySelector('#taskUI');
+    taskDiv.innerHTML = 
+    `<div class="project-board">
+    <div class="p1">
+        <p class="header-p">low-priority</p>
+        <div class="task-area">
+
+        </div>
+    </div>
+    <div class="p2">
+        <p class="header-p">in-progress</p>
+        <div class="task-area">
+
+        </div>
+    </div>
+    <div class="p3">
+        <p class="header-p">completed</p>
+        <div class="task-area">
+
+        </div>
+    </div>
+    <div class="p4">
+        <p class="header-p">due-soon</p>
+        <div class="task-area">
+            
+        </div>
+    </div>
+</div>`;
+
+// probably put a function here that loads in each individual task thats in the project
+
+let taskBtnWrapper = document.querySelector('.new-task-wrapper');
+let taskBtn = document.createElement('button');
+    taskBtn.setAttribute('id', 'newTask');
+    taskBtn.textContent = 'New Task';
+
+    taskBtnWrapper.appendChild(taskBtn);
+}
+
+function clearTaskUI() {
+    let taskDiv = document.querySelector('#taskUI');
+    taskDiv.innerHTML = '';
+
+
+    let taskBtnWrapper = document.querySelector('.new-task-wrapper');
+    taskBtnWrapper.innerHTML = '';
+}
 
 export {newProject};

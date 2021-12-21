@@ -29,8 +29,6 @@ function makeProject(name) {
     project.Name = name;
     project.pushToTaskmaster(project);
 }
-makeProject("Bruh");
-console.log(taskMaster);
 class Task {
     Name = undefined;
     Description = "";
@@ -53,10 +51,7 @@ function makeTask(description, name, date, projectName) {
     task.Description = description;
     task.pushToProject(projectName, task);
 }
-makeTask("no","Doin Your Mom", "69", taskMaster.Projects[0]);
-makeTask("yes","Doin Your Mom", "67", taskMaster.Projects[0]);
 
-console.log(taskMaster.Projects[0].Tasks);
 export {makeTask, makeProject, taskMaster};
 /*let exProject = new Project;
 exProject.Name = 'exProject';
