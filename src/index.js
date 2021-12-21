@@ -29,7 +29,35 @@ function makeProject(name) {
     project.Name = name;
     project.pushToTaskmaster(project);
 }
-export {makeProject, taskMaster};
+makeProject("Bruh");
+console.log(taskMaster);
+class Task {
+    Name = undefined;
+    Description = "";
+    LowPriority = true;
+    InProgress = false;
+    Completed = false;
+    Date = undefined;
+
+    pushToProject(projectName, task) {
+        projectName.newTask(task);
+    }
+
+
+
+}
+function makeTask(description, name, date, projectName) {
+    let task = new Task;
+    task.Name = name;
+    task.Date = date;
+    task.Description = description;
+    task.pushToProject(projectName, task);
+}
+makeTask("no","Doin Your Mom", "69", taskMaster.Projects[0]);
+makeTask("yes","Doin Your Mom", "67", taskMaster.Projects[0]);
+
+console.log(taskMaster.Projects[0].Tasks);
+export {makeTask, makeProject, taskMaster};
 /*let exProject = new Project;
 exProject.Name = 'exProject';
 console.log(exProject);

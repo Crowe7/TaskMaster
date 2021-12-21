@@ -1,4 +1,4 @@
-import {makeProject, taskMaster} from "./index"
+import {makeTask, makeProject, taskMaster} from "./index"
 /*                         <form id="input" class="title-input" action="">
                             <div class="project-form-input">
                                 <input type="text" id="pTitle" placeholder="What is the title of the Project?" required maxlength="40" >
@@ -22,14 +22,14 @@ function newProject() {
         </div>
     </form>`;
         newBtn.style.display = 'none';
-        newProjectUI(projectZone, newBtn);
+        newProjectBoxUI(projectZone, newBtn);
         let createBtn = document.querySelector('#createProject');
         console.log(createBtn);
         createBtn.addEventListener('click', submitProject);
     });
 
 }
-function newProjectUI(projectZone, newBtn) {
+function newProjectBoxUI(projectZone, newBtn) {
     let cancel = document.getElementById('cancelProject');
     cancel.addEventListener('click', () => {
         projectZone.innerHTML = '';
