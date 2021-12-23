@@ -11,13 +11,38 @@ body {
     min-height: 100vh;
     background-color: rgb(102, 173, 231);
 }
-header{
+.header{
     display: flex;
     background-color: steelblue;
     padding: 10px;
     font-size: 30px;
     color: white;
     justify-content: space-between;
+}
+.modal-header{
+    display: flex;
+    background-color: steelblue;
+    padding: 10px;
+    font-size: 30px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.modal-header-title{
+    margin-left: 50px;
+}
+.close{
+    font-size: 30px;
+    border: none;
+    background-color: inherit;
+    color: white;
+    width: 40px;
+    
+}
+.close:hover{
+    cursor: pointer;
+    color: rgb(226, 226, 226);
 }
 header h1{
     margin-left: 50px;
@@ -183,7 +208,7 @@ input[type=text]{
     width: 120px;
 }
 
-.project-modal input[type=text]{
+.projectmodal input[type=text]{
     font-size: 32px;
     padding: 10px;
     width: 90%;
@@ -191,7 +216,7 @@ input[type=text]{
     resize: none;
 }
 .project-modal {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -208,18 +233,67 @@ input[type=text]{
     flex-direction: column;
     text-align: center;
     box-shadow: 4px 4px 8px black;
-    width: 80%;
+    width: 60%;
     background-color: white;
     margin: 15% auto;
+    height: 500px;
+}
+.title-input-modal{
+    display: flex;
+    flex-direction: column;
+}
+#mTitle{
+    width: 95%;
+    border: none !important;
+    border-bottom: 1px solid steelblue !important;
+    border-right: 1px solid steelblue !important;
+    border-radius: 0px !important;
+    padding-left: 0px !important;
+}
+#taskDesc{
+    width: 95% !important;
+    margin-right: auto;
+    font-size: 16px;
+    resize: none;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+}
+.submit-task{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#createTask{
+    height: 25px;
+    border: 1px solid steelblue;
+    border-right: none !important;
+    transition: width .2s;
+    font-size: 12px;
+}
+#createTask:hover{
+    width: 150px;
+
 }
 
+.date-box{
+    margin-top: 2px;
+    height: 25px;
+    padding-left: 20px;
+    border: 1px solid steelblue;
+    border-left: none !important;
+}
 
-
-
-
-
-
-
+#dueDate{
+    margin-left: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: none;
+    font-size: 16px;
+    border-left: 1px solid steelblue;
+    color: rgb(0, 0, 0);
+    height: 100%;
+}
 
 
 
