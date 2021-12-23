@@ -104,9 +104,45 @@ let taskBtn = document.createElement('button');
     taskBtn.setAttribute('id', 'newTask');
     taskBtn.textContent = 'New Task';
 
+    taskBtn.addEventListener('click', createTaskBtnModal);
     taskBtnWrapper.appendChild(taskBtn);
 }
+function createTaskBtnModal() {
+    let modal = document.getElementById('modal');
+    modal.innerHTML = `<div id="modalID" class="project-modal">
+    <div class="modal-project-content">
 
+        <header class="modal-header">
+            <div></div>
+            <h2 class="modal-header-title">Task Info</h1>
+            <button type="button" id="closeModal" class="close">X</button>
+        </header>
+        <form id="input" class="title-input-modal" action="">
+            <div class="project-form-input-modal">
+                <input type="text" id="mTitle" placeholder="What is the title of the task?" required maxlength="40" >
+                <textarea id="taskDesc" placeholder="Task description" rows="15" maxlength="200"></textarea>
+            </div>
+            <div class="submit-task">
+                <div class="date-box">
+                    <label for="due-date">Due-Date:</label>
+                    <input type="date" id="dueDate" name="due-date">
+                </div>
+                <button type="button" id="createTask" class="new-project-button">CREATE TASK</button>
+                
+            </div>
+        </form>
+    </div>
+</div>`;
+    TaskBtnModalLogic();
+}
+function TaskBtnModalLogic() {
+    let modal = document.getElementById('modal');
+    let close = document.getElementById('closeModal');
+    close.addEventListener('click', () => {
+        modal.innerHTML = '';
+    });
+    //DO MORE WITH THIS 
+}
 function clearTaskUI() {
     let taskDiv = document.querySelector('#taskUI');
     taskDiv.innerHTML = '';
