@@ -69,7 +69,46 @@ header h1{
     border-right: 3px solid steelblue;
 
 }
+.pro{
+    display: flex;
+    justify-content: space-between;
+    background-color: inherit;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: white;
+    padding-left: 20px;
+    border: none;
+    border-left: 5px solid steelblue;
+    margin: 5px;
+    border-radius: 3px;
+}
+.pro:hover{
+    border-left: 5px solid rgb(84, 146, 196);
+    background-color: rgb(84, 146, 196);
+}
+.pro span {
+    visibility: hidden;
+}
+.active-project{
+    border-left: 5px solid rgb(84, 146, 196);
+    background-color: rgb(84, 146, 196);
+}
+.pro:hover span{
+    visibility: visible;
+}
 
+#deleteProject{
+    padding-right: 15px;
+    padding-left: 15px;
+    color: white;
+    border: 2px solid rgb(84, 146, 196);
+}
+
+#deleteProject:hover{
+    border-left: 2px solid lightskyblue;
+    border-bottom: 2px solid lightskyblue;
+}
 .home{
     font-size: 16px;
     padding: 10px;
@@ -116,9 +155,7 @@ header h1{
     margin-bottom: 30px;
 }
 
-.pro{
-    margin-top: 40px;
-}
+
 
 .project-board{
     display: flex;

@@ -37,11 +37,23 @@ function makeProjectBtn(name){
     project.classList.add('pro');
     wrapper.appendChild(project);
     project.innerText = name;
+    project.appendChild(makeDeleteProjectButton());
 
     project.addEventListener('click', makeTaskUI);
 
 }
+function makeDeleteProjectButton() {
+    let deleteBtn = document.createElement('span');
+    deleteBtn.setAttribute('id', 'deleteProject');
+    deleteBtn.innerText = 'X';
 
+    deleteBtn.addEventListener('click', deleteProject);
+    return deleteBtn;
+}
+function deleteProject() {
+    console.log('TODO IMPORT A DELETE FUNCTION FOR BOTH STORAGE DIV AND FROM TASKMASTER');
+    //TODO IMPORT A DELETE FUNCTION FOR BOTH STORAGE DIV AND FROM TASKMASTER
+}
 function submitProject() {
     let projectZone = document.getElementById('projectZone');
     let newBtn = document.getElementById('newProject');
