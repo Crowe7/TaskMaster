@@ -145,6 +145,8 @@ function createTaskBtnModal() {
         </form>
     </div>
 </div>`;
+    let date = document.getElementById('dueDate');
+    date.value ='2022-12-31';
     TaskBtnModalLogic();
 }
 function TaskBtnModalLogic() {
