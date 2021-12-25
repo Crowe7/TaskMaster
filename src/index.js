@@ -38,7 +38,11 @@ class Task {
     Date = undefined;
 
     pushToProject(projectName, task) {
-        projectName.newTask(task);
+        for(let i = 0; i < taskMaster.Projects.length; i++) {
+            if(taskMaster.Projects[i].Name.trim() === projectName.trim()) {
+                taskMaster.Projects[i].newTask(task);
+            }
+        }
     }
 
 
@@ -50,6 +54,7 @@ function makeTask(description, name, date, projectName) {
     task.Date = date;
     task.Description = description;
     task.pushToProject(projectName, task);
+    console.log(task);
 }
 
 export {makeTask, makeProject, taskMaster};

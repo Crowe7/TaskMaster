@@ -39,9 +39,31 @@ function makeProjectBtn(name){
     project.innerText = name;
     project.appendChild(makeDeleteProjectButton());
 
-    project.addEventListener('click', makeTaskUI);
+    project.addEventListener('click', () => {
+        makeTaskUI();
+        setActiveProject(project);
+    });
 
 }
+function setActiveProject(project) {
+    let wrapper = document.querySelector('.all-projects');
+    for(let i = 0; i < wrapper.children.length; i++) {
+        if(wrapper.children[i].classList.contains('active-project')) {
+            wrapper.children[i].classList.remove('active-project');
+        }
+    }
+    project.classList.add('active-project');
+}
+function returnActiveProject() {
+    let wrapper = document.querySelector('.all-projects');
+    for(let i = 0; i < wrapper.children.length; i++) {
+        if(wrapper.children[i].classList.contains('active-project')) {
+            return wrapper.children[i].innerText;
+        }
+    }
+}
+
+
 function makeDeleteProjectButton() {
     let deleteBtn = document.createElement('span');
     deleteBtn.setAttribute('id', 'deleteProject');
@@ -150,12 +172,15 @@ function createTaskBtnModal() {
     TaskBtnModalLogic();
 }
 function TaskBtnModalLogic() {
-    let modal = document.getElementById('modal');
     let close = document.getElementById('closeModal');
-    close.addEventListener('click', () => {
-        modal.innerHTML = '';
-    });
-    //DO MORE WITH THIS 
+    close.addEventListener('click', closeTaskModal);
+    
+    let submit = document.getElementById('createTask');
+    submit.addEventListener('click', submitTask);
+}
+function closeTaskModal() {
+    let modal = document.getElementById('modal');
+    modal.innerHTML = '';
 }
 function clearTaskUI() {
     let taskDiv = document.querySelector('#taskUI');
@@ -165,7 +190,17 @@ function clearTaskUI() {
     let taskBtnWrapper = document.querySelector('.new-task-wrapper');
     taskBtnWrapper.innerHTML = '';
 }
-
+function submitTask() {
+    let date = document.getElementById('dueDate');
+    let description = document.getElementById('taskDesc').value;
+    let taskName = document.getElementById('mTitle');
+    if(taskName.value === "") {
+        alert("Title Can't Be Blank!");
+        return;
+    }
+    makeTask(description, taskName.value, date.value, returnActiveProject());
+    closeTaskModal();
+}
 
 
 
