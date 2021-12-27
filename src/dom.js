@@ -33,7 +33,7 @@ function newProjectBoxUI(projectZone, newBtn) {
 function makeProjectBtn(name){
     let wrapper = document.querySelector('.all-projects');
     let project = document.createElement('button');
-    project.setAttribute('id', 'project');
+    project.setAttribute('id', name);
     project.classList.add('pro');
     wrapper.appendChild(project);
     project.innerText = name;
@@ -42,6 +42,7 @@ function makeProjectBtn(name){
     project.addEventListener('click', () => {
         makeTaskUI();
         setActiveProject(project);
+        displayProjectsTasks();
     });
 
 }
@@ -58,7 +59,9 @@ function returnActiveProject() {
     let wrapper = document.querySelector('.all-projects');
     for(let i = 0; i < wrapper.children.length; i++) {
         if(wrapper.children[i].classList.contains('active-project')) {
-            return wrapper.children[i].innerText;
+
+            let active = wrapper.children[i].id;
+            return active;
         }
     }
 }
@@ -107,25 +110,25 @@ function makeTaskUI() {
     `<div class="project-board">
     <div class="p1">
         <p class="header-p">low-priority</p>
-        <div class="task-area">
+        <div id="low-prio" class="task-area">
 
         </div>
     </div>
     <div class="p2">
         <p class="header-p">in-progress</p>
-        <div class="task-area">
+        <div id = "in-pro" class="task-area">
 
         </div>
     </div>
     <div class="p3">
         <p class="header-p">completed</p>
-        <div class="task-area">
+        <div id="complete" class="task-area">
 
         </div>
     </div>
     <div class="p4">
         <p class="header-p">due-soon</p>
-        <div class="task-area">
+        <div id="due-soon" class="task-area">
             
         </div>
     </div>
@@ -191,6 +194,7 @@ function clearTaskUI() {
     taskBtnWrapper.innerHTML = '';
 }
 function submitTask() {
+
     let date = document.getElementById('dueDate');
     let description = document.getElementById('taskDesc').value;
     let taskName = document.getElementById('mTitle');
@@ -198,12 +202,64 @@ function submitTask() {
         alert("Title Can't Be Blank!");
         return;
     }
+    console.log(returnActiveProject());
     makeTask(description, taskName.value, date.value, returnActiveProject());
+    makeTaskBtn(taskName.value, 1);
     closeTaskModal();
 }
 
+function makeTaskBtn(name, status) {
+
+    if(status === 1) {
+        status = document.getElementById('low-prio');
+    }
+    else if(status === 2){
+        status = document.getElementById('in-pro');
+    }
+    else if(status === 3){
+        status = document.getElementById('complete');
+    }
+    else if(status === 4){
+        status = document.getElementById('due-soon');
+    }
 
 
+    let task = document.createElement('button');
+
+    task.setAttribute('id', returnActiveProject());
+    task.classList.add('task');
+    task.textContent = name;
+
+    status.appendChild(task);
+}
+
+function displayProjectsTasks() {
+    for(let i = 0; i < taskMaster.Projects.length; i++) {
+        if(taskMaster.Projects[i].Name.trim() === returnActiveProject()) {
+            let activeProject = taskMaster.Projects[i];
+            console.log(activeProject);
+            if(activeProject.Tasks.length === undefined) {
+                return
+            }
+            for(let j = 0; j < activeProject.Tasks.length; j++) {
+                let currentTask = activeProject.Tasks[j];
+                console.log(currentTask);
+                if(currentTask.LowPriority === true) {
+                    makeTaskBtn(currentTask.Name, 1);
+                }
+                else if(currentTask.InProgress === true) {
+                    makeTaskBtn(currentTask.Name, 2);
+                }
+                else if(currentTask.Completed === true) {
+                    makeTaskBtn(currentTask.Name, 3);
+                }
+                else{
+                    // PUT THE CHECK FOR DUE SOON FUNCTION HERE!!
+                }
+            }
+        }
+    }
+}
 
 
 export {newProject};
