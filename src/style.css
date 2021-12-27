@@ -40,6 +40,7 @@ body {
     width: 40px;
     
 }
+
 .close:hover{
     cursor: pointer;
     color: rgb(226, 226, 226);
@@ -335,12 +336,79 @@ input[type=text]{
 
 
 
+.modal-task-content{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 4px 8px black;
+    width: 60%;
+    background-color: white;
+    margin: 10% auto;
+    height: 500px;
+}
+.task-desc{
+   padding-left: 20px;
+   height:300px;
+   width: 100%;
+}
 
+.status-buttons{
+    display: flex;
+    padding-left: 15px;
+    gap: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.status-buttons button{
+    font-size: 12px;
+    padding: 10px;
+    padding-bottom: 10px;
+    border: none;
+    border-bottom: 3px solid steelblue;
+    background-color: white;
+    transition: padding .5s;
+}
+.status-buttons button:hover {
+    cursor: pointer;
+    padding-right: 20px !important;
+    padding-left:  20px !important;
 
+}
+.active-task{
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    background-color: rgb(255, 239, 188) !important;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
 
+.confirm{
+    font-size: 12px;
+    padding: 10px;
+    border: none;
+    background-color: white;
+    margin-left: auto;
+    border-bottom: 2px solid steelblue;
+    border-left: 2px solid steelblue;
+}
 
+.confirm:hover {
+    cursor: pointer;
+}
 
-
+.task-footer{
+    display: flex;
+    padding: 10px;
+    background-color: rgb(255, 168, 181);
+    height: 100%;
+    justify-content: center;
+}
+.task-footer button{
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+    font-size: 16px;
+    color: white;
+}
 
 .content-wrapper{
     display: flex;

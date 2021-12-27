@@ -226,7 +226,7 @@ function makeTaskBtn(name, status) {
 
     let task = document.createElement('button');
 
-    task.setAttribute('id', returnActiveProject());
+    task.setAttribute('id', name);
     task.classList.add('task');
     task.textContent = name;
 
