@@ -70,9 +70,6 @@ function makeTask(description, name, date, projectName) {
     console.log(task);
 }
 
-makeProject('jeff');
-makeTask('e', 'ee', 'no', 'jeff');
-taskMaster.Projects[0].deleteTask(taskMaster.Projects[0].Tasks[0]);
-console.log(taskMaster);
+
 
 export {makeTask, makeProject, taskMaster};

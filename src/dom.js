@@ -37,7 +37,8 @@ function makeProjectBtn(name){
     project.classList.add('pro');
     wrapper.appendChild(project);
     project.innerText = name;
-    project.appendChild(makeDeleteProjectButton());
+    project.appendChild(makeDeleteProjectButton(project));
+    
 
     project.addEventListener('click', () => {
         makeTaskUI();
@@ -73,19 +74,34 @@ function returnProject() {
         }
     }
 }
-
-function makeDeleteProjectButton() {
+function returnProjectToDelete(project) {
+    for(let i = 0; i < taskMaster.Projects.length; i++) {
+        if(taskMaster.Projects[i].Name.trim() === project.id) {
+            let activeProject = taskMaster.Projects[i];
+            return activeProject;
+        }
+    }
+}
+function makeDeleteProjectButton(project) {
     let deleteBtn = document.createElement('span');
     deleteBtn.setAttribute('id', 'deleteProject');
     deleteBtn.innerText = 'X';
 
-    deleteBtn.addEventListener('click', deleteProject);
+    deleteBtn.addEventListener('click', (e) => {
+        deleteProject(project, e);
+    });
     return deleteBtn;
 }
-function deleteProject() {
-    console.log('TODO IMPORT A DELETE FUNCTION FOR BOTH STORAGE DIV AND FROM TASKMASTER');
+function deleteProject(project, e) {
+    taskMaster.deleteProject(returnProjectToDelete(project));
+    project.remove();
+    e.stopPropagation();
+    document.getElementById('taskUI').innerHTML = ''
+
+
     //TODO IMPORT A DELETE FUNCTION FOR BOTH STORAGE DIV AND FROM TASKMASTER
 }
+
 function submitProject() {
     let projectZone = document.getElementById('projectZone');
     let newBtn = document.getElementById('newProject');
@@ -310,43 +326,43 @@ function displayTaskInfo(e) {
         </footer>
     </div>
 </div> `;
-let close = document.getElementById('closeModal');
-close.addEventListener('click', closeTaskModal);
+    let close = document.getElementById('closeModal');
+    close.addEventListener('click', closeTaskModal);
 
 
 
-let parentProject = returnProject();
+    let parentProject = returnProject();
 
-let task = returnCurrTask(parentProject, e.id);
+    let task = returnCurrTask(parentProject, e.id);
 
-let title = document.getElementById('taskTitle');
-title.innerText = task.Name;
+    let title = document.getElementById('taskTitle');
+    title.innerText = task.Name;
 
-let desc = document.getElementById('taskDesc');
-desc.innerText = task.Description;
-if(desc.innerText === "") {
-    desc.innerText = ":]";
-}
+    let desc = document.getElementById('taskDesc');
+    desc.innerText = task.Description;
+    if(desc.innerText === "") {
+        desc.innerText = ":]";
+    }
 
-let due = document.getElementById('dueDate');
-due.value = task.Date;
+    let due = document.getElementById('dueDate');
+    due.value = task.Date;
 
-let statBtn = document.getElementById('statBtn');
+    let statBtn = document.getElementById('statBtn');
 
-for(let i = 0; i < statBtn.children.length; i++) {
-    statBtn.children[i].addEventListener('click', () => {
-        highlightStatus(statBtn, statBtn.children[i]);
-    });
-}
-if(task.LowPriority === true) {
-    statBtn.children[0].classList.add('active-task');
-}
-else if(task.InProgress === true) {
-    statBtn.children[1].classList.add('active-task');
-}
-else if(task.Completed === true) {
-    statBtn.children[2].classList.add('active-task');
-}
+    for(let i = 0; i < statBtn.children.length; i++) {
+        statBtn.children[i].addEventListener('click', () => {
+            highlightStatus(statBtn, statBtn.children[i]);
+        });
+    }
+    if(task.LowPriority === true) {
+        statBtn.children[0].classList.add('active-task');
+    }
+    else if(task.InProgress === true) {
+        statBtn.children[1].classList.add('active-task');
+    }
+    else if(task.Completed === true) {
+        statBtn.children[2].classList.add('active-task');
+    }
 
 
 }
@@ -359,46 +375,5 @@ function highlightStatus(statusWrapper, statBtn) {
     }
     statBtn.classList.add('active-task');
 }
-/*     <div id="modalID" class="project-modal">
-    <div class="modal-task-content">
-
-        <header class="modal-header">
-            <div></div>
-            <h2 class="modal-header-title"></h1>
-            //set title to modal title
-            <button type="button" id="closeModal" class="close">X</button>
-        </header>
-        <form id="input" class="title-input-modal" action="">
-            <div class="project-form-input-modal">
-                <p class="task-desc" id="taskDesc"></p>
-                //set description to tasks
-            </div>
-            <div class="submit-task">
-                <div class="status">
-                    <div class="date-box">
-                        <label for="due-date">Due-Date:</label>
-                        <input type="date" id="dueDate" name="due-date"> </input>
-                        //change value to what the actual task due date is
-                    </div>
-                    <div class="status-buttons">
-                        <button type="button" id="low">Low Priority</button>
-                        <button type="button" id="in">In-Progress</button>
-                        <button type="button" id="comp">Completed</button>
-                        // set active button based on which one is true in the task.
-                    </div>
-                </div>
-                <button type="button" id="confirmChanges" class="confirm">CONFIRM CHANGES</button>
-                
-            </div>
-        </form>
-        <footer class="task-footer">
-            <button type="button" id="deleteTask">DELETE TASK!</button>
-        </footer>
-    </div>
-</div> 
-let low = document.getElementById('low');
-let inPro = document.getElementById('in');
-let comp = document.getElementById('comp');
-*/
 
 export {newProject};
