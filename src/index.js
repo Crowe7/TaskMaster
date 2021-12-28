@@ -26,7 +26,13 @@ class Project {
     pushToTaskmaster(name) {
         taskMaster.newProject(name);
     }
-
+    deleteTask(task) {
+        for(let i = 0; i < this.Tasks.length; i++) {
+            if(this.Tasks[i] === task) {
+                this.Tasks.splice(i, 1);
+            }
+        }
+    }
 }
 function makeProject(name) {
     let project = new Project;
@@ -34,13 +40,7 @@ function makeProject(name) {
     project.pushToTaskmaster(project);
 }
 
-makeProject('jeff');
-makeProject('bob');
-console.log(taskMaster);
-let project = taskMaster.Projects[0];
 
-taskMaster.deleteProject(project);
-console.log(taskMaster);
 
 class Task {
     Name = undefined;
@@ -70,6 +70,9 @@ function makeTask(description, name, date, projectName) {
     console.log(task);
 }
 
-
+makeProject('jeff');
+makeTask('e', 'ee', 'no', 'jeff');
+taskMaster.Projects[0].deleteTask(taskMaster.Projects[0].Tasks[0]);
+console.log(taskMaster);
 
 export {makeTask, makeProject, taskMaster};
