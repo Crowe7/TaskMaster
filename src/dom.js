@@ -96,10 +96,10 @@ function deleteProject(project, e) {
     taskMaster.deleteProject(returnProjectToDelete(project));
     project.remove();
     e.stopPropagation();
-    document.getElementById('taskUI').innerHTML = ''
+    document.getElementById('taskUI').innerHTML = '';
 
 
-    //TODO IMPORT A DELETE FUNCTION FOR BOTH STORAGE DIV AND FROM TASKMASTER
+    //TODO IMPORT A DELETE FUNCTION FOR STORAGE NOW! 
 }
 
 function submitProject() {
@@ -329,7 +329,7 @@ function displayTaskInfo(e) {
     let close = document.getElementById('closeModal');
     close.addEventListener('click', closeTaskModal);
 
-
+    
 
     let parentProject = returnProject();
 
@@ -348,23 +348,29 @@ function displayTaskInfo(e) {
     due.value = task.Date;
 
     let statBtn = document.getElementById('statBtn');
+    
 
     for(let i = 0; i < statBtn.children.length; i++) {
         statBtn.children[i].addEventListener('click', () => {
             highlightStatus(statBtn, statBtn.children[i]);
         });
-    }
-    if(task.LowPriority === true) {
-        statBtn.children[0].classList.add('active-task');
-    }
-    else if(task.InProgress === true) {
-        statBtn.children[1].classList.add('active-task');
-    }
-    else if(task.Completed === true) {
-        statBtn.children[2].classList.add('active-task');
+    
+        if(task.LowPriority === true) {
+            statBtn.children[0].classList.add('active-task');
+        }
+        else if(task.InProgress === true) {
+            statBtn.children[1].classList.add('active-task');
+        }
+        else if(task.Completed === true) {
+            statBtn.children[2].classList.add('active-task');
+        }
     }
 
-
+    let remove = document.getElementById('deleteTask');
+    remove.addEventListener('click', () => {
+        deleteTask(parentProject, task, e);
+    });
+    
 }
 
 function highlightStatus(statusWrapper, statBtn) {
@@ -375,5 +381,9 @@ function highlightStatus(statusWrapper, statBtn) {
     }
     statBtn.classList.add('active-task');
 }
-
+function deleteTask(project, task, e) {
+    e.remove();
+    closeTaskModal();
+    project.deleteTask(task);
+}
 export {newProject};
