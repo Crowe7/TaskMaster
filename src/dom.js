@@ -97,7 +97,9 @@ function deleteProject(project, e) {
     project.remove();
     e.stopPropagation();
     document.getElementById('taskUI').innerHTML = '';
-
+    if(returnActiveProjectName() !== undefined) {
+        makeAndDisplayTasks();
+    }
 
     //TODO IMPORT A DELETE FUNCTION FOR STORAGE NOW! 
 }
@@ -385,6 +387,12 @@ function deleteTask(project, task, e) {
     e.remove();
     closeTaskModal();
     project.deleteTask(task);
+}
+
+
+function makeAndDisplayTasks() {
+    makeTaskUI();
+    displayProjectsTasks();
 }
 export {newProject};
 
