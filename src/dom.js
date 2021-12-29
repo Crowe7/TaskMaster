@@ -228,7 +228,7 @@ function submitTask() {
         return;
     }
     console.log(returnActiveProjectName());
-    makeTask(description, taskName.value, date.value, returnActiveProjectName());
+    makeTask(description, taskName.value, date.value, returnActiveProjectName(), "LowPriority");
     makeTaskBtn(taskName.value, 1);
     closeTaskModal();
 }
@@ -275,13 +275,13 @@ function displayProjectsTasks() {
         for(let j = 0; j < activeProject.Tasks.length; j++) {
             let currentTask = activeProject.Tasks[j];
             console.log(currentTask);
-            if(currentTask.LowPriority === true) {
+            if(currentTask.Status === "LowPriority") {
                 makeTaskBtn(currentTask.Name, 1);
             }
-            else if(currentTask.InProgress === true) {
+            else if(currentTask.Status === "InProgress") {
                 makeTaskBtn(currentTask.Name, 2);
             }
-            else if(currentTask.Completed === true) {
+            else if(currentTask.Status === "Completed") {
                 makeTaskBtn(currentTask.Name, 3);
             }
             else{
@@ -355,13 +355,13 @@ function displayTaskInfo(e) {
             highlightStatus(statBtn, statBtn.children[i]);
         });
     
-        if(task.LowPriority === true) {
+        if(task.Status === "LowPriority") {
             statBtn.children[0].classList.add('active-task');
         }
-        else if(task.InProgress === true) {
+        else if(task.Status === "InProgress") {
             statBtn.children[1].classList.add('active-task');
         }
-        else if(task.Completed === true) {
+        else if(task.Status === "Completed") {
             statBtn.children[2].classList.add('active-task');
         }
     }
@@ -387,3 +387,4 @@ function deleteTask(project, task, e) {
     project.deleteTask(task);
 }
 export {newProject};
+

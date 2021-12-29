@@ -41,13 +41,13 @@ function makeProject(name) {
 }
 
 
+// maybe change low in and completed to a single status that those would be the key to
+// add isDueSoon method that checks with date-fns if the task is due in a less than a week
 
 class Task {
     Name = undefined;
     Description = "";
-    LowPriority = true;
-    InProgress = false;
-    Completed = false;
+    Status = "LowPriority"
     Date = undefined;
 
     pushToProject(projectName, task) {
@@ -61,10 +61,15 @@ class Task {
 
 
 }
-function makeTask(description, name, date, projectName) {
+// status can be LowPriority InProgress Completed
+function makeTask(description, name, date, projectName, status) {
+    if(status === undefined) {
+        status === "LowPriority";
+    }
     let task = new Task;
     task.Name = name;
     task.Date = date;
+    task.Status = status;
     task.Description = description;
     task.pushToProject(projectName, task);
     console.log(task);
