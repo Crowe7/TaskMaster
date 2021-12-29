@@ -96,7 +96,7 @@ function deleteProject(project, e) {
     taskMaster.deleteProject(returnProjectToDelete(project));
     project.remove();
     e.stopPropagation();
-    document.getElementById('taskUI').innerHTML = '';
+    clearTaskUI();
     if(returnActiveProjectName() !== undefined) {
         makeAndDisplayTasks();
     }
@@ -231,7 +231,7 @@ function submitTask() {
     }
     console.log(returnActiveProjectName());
     makeTask(description, taskName.value, date.value, returnActiveProjectName(), "LowPriority");
-    makeTaskBtn(taskName.value, 1);
+    makeTaskBtn(taskName.value, "LowPriority");
     closeTaskModal();
 }
 function returnCurrTask(project, name) {
@@ -244,13 +244,13 @@ function returnCurrTask(project, name) {
 }
 function makeTaskBtn(name, status) {
 
-    if(status === 1) {
+    if(status === "LowPriority") {
         status = document.getElementById('low-prio');
     }
-    else if(status === 2){
+    else if(status === "InProgress"){
         status = document.getElementById('in-pro');
     }
-    else if(status === 3){
+    else if(status === "Completed"){
         status = document.getElementById('complete');
     }
     else if(status === 4){
@@ -277,18 +277,8 @@ function displayProjectsTasks() {
         for(let j = 0; j < activeProject.Tasks.length; j++) {
             let currentTask = activeProject.Tasks[j];
             console.log(currentTask);
-            if(currentTask.Status === "LowPriority") {
-                makeTaskBtn(currentTask.Name, 1);
-            }
-            else if(currentTask.Status === "InProgress") {
-                makeTaskBtn(currentTask.Name, 2);
-            }
-            else if(currentTask.Status === "Completed") {
-                makeTaskBtn(currentTask.Name, 3);
-            }
-            else{
+            makeTaskBtn(currentTask.Name, currentTask.Status)
                     // PUT THE CHECK FOR DUE SOON FUNCTION HERE!!
-            }
         }
     }
 
@@ -372,6 +362,11 @@ function displayTaskInfo(e) {
     remove.addEventListener('click', () => {
         deleteTask(parentProject, task, e);
     });
+
+    let submit = document.getElementById('confirmChanges');
+    submit.addEventListener('click', () => {
+        updateTask(task, e);
+    });
     
 }
 
@@ -389,6 +384,35 @@ function deleteTask(project, task, e) {
     project.deleteTask(task);
 }
 
+
+function updateTaskObject(task) {
+    let due = document.getElementById('dueDate');
+    task.Date = due.value;
+
+    task.Status = taskStatus();
+
+}
+
+function updateTask(task, e) {
+    let oldButtonID = e.id;
+    e.remove();
+    updateTaskObject(task);
+    makeTaskBtn(oldButtonID, task.Status);
+    closeTaskModal();
+
+}
+
+function taskStatus() {
+    if(document.getElementById('low').classList.contains('active-task')) {
+        return "LowPriority";
+    }
+    if(document.getElementById('in').classList.contains('active-task')) {
+        return "InProgress";
+    }
+    if(document.getElementById('comp').classList.contains('active-task')) {
+        return "Completed";
+    }
+}
 
 function makeAndDisplayTasks() {
     makeTaskUI();
