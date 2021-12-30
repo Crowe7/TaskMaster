@@ -1,5 +1,10 @@
+import { id } from "date-fns/locale";
 import {makeTask, makeProject, taskMaster} from "./index"
 import {loadTaskMaster, saveTaskmaster} from "./storage";
+function homeBtn() {
+    let homeBtn = document.getElementById('homeBtn');
+    homeBtn.addEventListener('click', makeHomeMenu);
+}
 
 function newProject() {
     let newBtn = document.getElementById('newProject');
@@ -430,6 +435,75 @@ function loadProjectsOnBoot() {
     }
 }
 
+function makeHomeMenu() {
+    let taskDiv = document.getElementById('taskUI');
+    clearTaskUI();
 
-export {newProject, loadProjectsOnBoot};
+    let menu = document.createElement('div');
+    menu.classList.add('projectHomeMenu');
+    taskDiv.appendChild(menu)
+
+    if (taskMaster.Projects.length === 0) {
+        let noProjects = document.createElement('h1');
+        noProjects.textContent = 'NO PROJECTS! MAYBE CREATE ONE?';
+
+        taskDiv.appendChild(noProjects);
+    }
+    else {
+        for(let i = 0; i < taskMaster.Projects.length; i++) {
+            let project = taskMaster.Projects[i];
+            makeHomeButtons(project, menu);
+        }
+    }
+
+}
+
+function makeHomeButtons(project, menu) {
+    let homeProject = document.createElement('button');
+    homeProject.classList.add('projectHome');
+    homeProject.innerText = project.Name;
+
+    homeProject.addEventListener('click', () => {
+        makeTaskUI();
+        setHomeButtons(project.Name);
+        displayProjectsTasks();
+    });
+
+    let span = document.createElement('span');
+    span.classList.add('taskNumber');
+    span.textContent = howManyUncompleteTasks(project);
+    homeProject.appendChild(span);
+
+    menu.appendChild(homeProject);
+}
+function setHomeButtons(name) {
+    let wrapper = document.querySelector('.all-projects');
+    for(let i = 0; i < wrapper.children.length; i++) {
+        if(wrapper.children[i].id === name) {
+            setActiveProject(wrapper.children[i]);
+        }
+    }
+}
+function howManyUncompleteTasks(project) {
+    let counter = 0;
+    for(let i = 0; i < project.Tasks.length; i ++) {
+        if(project.Tasks[i].Status !== 'Completed') {
+            counter++;
+        }
+    }
+    return counter;
+}
+/*                 <div class="projectHomeMenu">
+                    <button class="projectHome">
+                        Project
+                        <span class="taskNumber">0</span>
+                    </button>
+                    <button class="projectHome">
+                        Project
+                        <span class="taskNumber">0</span>
+                    </button>
+                </div>
+*/
+
+export {newProject, loadProjectsOnBoot, makeHomeMenu, homeBtn};
 

@@ -1,4 +1,4 @@
-import {newProject, loadProjectsOnBoot} from "./dom";
+import {newProject, loadProjectsOnBoot, makeHomeMenu, homeBtn} from "./dom";
 import {loadTaskMaster, saveTaskmaster} from "./storage";
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
 newProject();
@@ -76,5 +76,7 @@ function makeTask(description, name, date, projectName, status) {
 }
 loadTaskMaster();
 loadProjectsOnBoot();
+makeHomeMenu();
+homeBtn();
 
 export {makeTask, makeProject, taskMaster};
