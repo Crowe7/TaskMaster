@@ -1,8 +1,8 @@
 import './style.css';
-import {newProject, loadProjectsOnBoot, makeHomeMenu, homeBtn} from "./dom";
+import {initDOM} from "./dom";
 import {loadTaskMaster, saveTaskmaster} from "./storage";
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
-newProject();
+
 
 
 // gonna have to put some storage functions in these later
@@ -75,9 +75,9 @@ function makeTask(description, name, date, projectName, status) {
     task.pushToProject(projectName, task);
     console.log(task);
 }
-loadTaskMaster();
-loadProjectsOnBoot();
-makeHomeMenu();
-homeBtn();
 
+
+//loads page 
+loadTaskMaster();
+initDOM();
 export {makeTask, makeProject, taskMaster};

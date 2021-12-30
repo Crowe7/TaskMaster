@@ -1,6 +1,6 @@
 import { id } from "date-fns/locale";
 import {makeTask, makeProject, taskMaster} from "./index"
-import {loadTaskMaster, saveTaskmaster} from "./storage";
+import {saveTaskmaster} from "./storage";
 function homeBtn() {
     let homeBtn = document.getElementById('homeBtn');
     homeBtn.addEventListener('click', makeHomeMenu);
@@ -493,17 +493,13 @@ function howManyUncompleteTasks(project) {
     }
     return counter;
 }
-/*                 <div class="projectHomeMenu">
-                    <button class="projectHome">
-                        Project
-                        <span class="taskNumber">0</span>
-                    </button>
-                    <button class="projectHome">
-                        Project
-                        <span class="taskNumber">0</span>
-                    </button>
-                </div>
-*/
 
-export {newProject, loadProjectsOnBoot, makeHomeMenu, homeBtn};
+function initDOM() {
+    newProject();
+    loadProjectsOnBoot();
+    makeHomeMenu();
+    homeBtn();
+}
+
+export {initDOM};
 
