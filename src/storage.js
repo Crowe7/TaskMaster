@@ -2,17 +2,19 @@ import {makeTask, makeProject, taskMaster} from "./index"
 
 function saveTaskmaster() {
     localStorage.setItem('taskMaster', JSON.stringify(taskMaster));
+    console.log(taskMaster);
 }
 
 function loadTaskMaster() {
     let localTaskMaster = JSON.parse(localStorage.getItem('taskMaster'));
     if(localTaskMaster !== null) {
-        for(let i = 0; i < loadTaskMaster.length; i++) {
-            let Project = loadTaskMaster[i];
+        for(let i = 0; i < localTaskMaster.Projects.length; i++) {
+            let Project = localTaskMaster.Projects[i];
             makeProject(Project.Name);
             loadTasks(Project);
         }
     }
+
 }
 function loadTasks(Project) {
     if(Project.Tasks.length !== 0) {

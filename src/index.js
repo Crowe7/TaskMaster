@@ -1,7 +1,9 @@
-import {newProject} from "./dom";
+import {newProject, loadProjectsOnBoot} from "./dom";
 import {loadTaskMaster, saveTaskmaster} from "./storage";
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
 newProject();
+
+
 // gonna have to put some storage functions in these later
 class Taskmaster {
     Projects = [];
@@ -72,10 +74,7 @@ function makeTask(description, name, date, projectName, status) {
     task.pushToProject(projectName, task);
     console.log(task);
 }
-makeProject('StorageTwo');
-makeProject('Storage');
-makeTask('bill', 'StorageTask', '2022-12-31', 'Storage', 'Completed');
-saveTaskmaster();
 loadTaskMaster();
-console.log(taskMaster.Projects[0].Tasks.length);
+loadProjectsOnBoot();
+
 export {makeTask, makeProject, taskMaster};

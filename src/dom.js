@@ -1,5 +1,5 @@
 import {makeTask, makeProject, taskMaster} from "./index"
-
+import {loadTaskMaster, saveTaskmaster} from "./storage";
 
 function newProject() {
     let newBtn = document.getElementById('newProject');
@@ -97,11 +97,11 @@ function deleteProject(project, e) {
     project.remove();
     e.stopPropagation();
     clearTaskUI();
+    saveTaskmaster();
     if(returnActiveProjectName() !== undefined) {
         makeAndDisplayTasks();
     }
 
-    //TODO IMPORT A DELETE FUNCTION FOR STORAGE NOW! 
 }
 
 function submitProject() {
@@ -122,6 +122,7 @@ function submitProject() {
         }
         makeProject(projectName.value);
         makeProjectBtn(projectName.value);
+        saveTaskmaster();
         projectZone.innerHTML = '';
         newBtn.style.display = 'block';
         console.log(taskMaster);
@@ -231,6 +232,7 @@ function submitTask() {
     }
     console.log(returnActiveProjectName());
     makeTask(description, taskName.value, date.value, returnActiveProjectName(), "LowPriority");
+    saveTaskmaster();
     makeTaskBtn(taskName.value, "LowPriority");
     closeTaskModal();
 }
@@ -382,6 +384,7 @@ function deleteTask(project, task, e) {
     e.remove();
     closeTaskModal();
     project.deleteTask(task);
+    saveTaskmaster();
 }
 
 
@@ -399,7 +402,7 @@ function updateTask(task, e) {
     updateTaskObject(task);
     makeTaskBtn(oldButtonID, task.Status);
     closeTaskModal();
-
+    saveTaskmaster();
 }
 
 function taskStatus() {
@@ -418,5 +421,15 @@ function makeAndDisplayTasks() {
     makeTaskUI();
     displayProjectsTasks();
 }
-export {newProject};
+
+function loadProjectsOnBoot() {
+    if (taskMaster.Projects.length !== 0) {
+        for(let i = 0; i < taskMaster.Projects.length; i++) {
+            makeProjectBtn(taskMaster.Projects[i].Name);
+        }
+    }
+}
+
+
+export {newProject, loadProjectsOnBoot};
 
