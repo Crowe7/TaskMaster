@@ -1,3 +1,4 @@
+import './style.css';
 import {newProject, loadProjectsOnBoot, makeHomeMenu, homeBtn} from "./dom";
 import {loadTaskMaster, saveTaskmaster} from "./storage";
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
