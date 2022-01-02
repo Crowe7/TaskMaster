@@ -6,6 +6,17 @@ function homeBtn() {
     homeBtn.addEventListener('click', makeHomeMenu);
 }
 
+function clearTaskUI() {
+    let taskDiv = document.querySelector('#taskUI');
+    taskDiv.innerHTML = '';
+
+
+    let taskBtnWrapper = document.querySelector('.new-task-wrapper');
+    taskBtnWrapper.innerHTML = '';
+}
+
+
+
 function newProject() {
     let newBtn = document.getElementById('newProject');
     let projectZone = document.getElementById('projectZone');
@@ -52,6 +63,32 @@ function makeProjectBtn(name){
     });
 
 }
+function makeDeleteProjectButton(project) {
+    let deleteBtn = document.createElement('span');
+    deleteBtn.setAttribute('id', 'deleteProject');
+    deleteBtn.innerText = 'X';
+
+    deleteBtn.addEventListener('click', (e) => {
+        deleteProject(project, e);
+    });
+    return deleteBtn;
+}
+
+function deleteProject(project, e) {
+    taskMaster.deleteProject(returnProjectToDelete(project));
+    project.remove();
+    e.stopPropagation();
+    clearTaskUI();
+    saveTaskmaster();
+    if(returnActiveProjectName() !== undefined) {
+        makeAndDisplayTasks();
+    }
+
+}
+
+
+
+
 function setActiveProject(project) {
     let wrapper = document.querySelector('.all-projects');
     for(let i = 0; i < wrapper.children.length; i++) {
@@ -87,27 +124,7 @@ function returnProjectToDelete(project) {
         }
     }
 }
-function makeDeleteProjectButton(project) {
-    let deleteBtn = document.createElement('span');
-    deleteBtn.setAttribute('id', 'deleteProject');
-    deleteBtn.innerText = 'X';
 
-    deleteBtn.addEventListener('click', (e) => {
-        deleteProject(project, e);
-    });
-    return deleteBtn;
-}
-function deleteProject(project, e) {
-    taskMaster.deleteProject(returnProjectToDelete(project));
-    project.remove();
-    e.stopPropagation();
-    clearTaskUI();
-    saveTaskmaster();
-    if(returnActiveProjectName() !== undefined) {
-        makeAndDisplayTasks();
-    }
-
-}
 
 function submitProject() {
     let projectZone = document.getElementById('projectZone');
@@ -167,15 +184,17 @@ function makeTaskUI() {
 
 // probably put a function here that loads in each individual task thats in the project
 
-let taskBtnWrapper = document.querySelector('.new-task-wrapper');
-let taskBtn = document.createElement('button');
+    makeNewTaskBtn();
+}
+function makeNewTaskBtn() {
+    let taskBtnWrapper = document.querySelector('.new-task-wrapper');
+    let taskBtn = document.createElement('button');
     taskBtn.setAttribute('id', 'newTask');
     taskBtn.textContent = 'New Task';
 
     taskBtn.addEventListener('click', createTaskBtnModal);
     taskBtnWrapper.appendChild(taskBtn);
 }
-
 
 function createTaskBtnModal() {
     let modal = document.getElementById('modal');
@@ -207,6 +226,8 @@ function createTaskBtnModal() {
     date.value ='2022-12-31';
     TaskBtnModalLogic();
 }
+
+
 function TaskBtnModalLogic() {
     let close = document.getElementById('closeModal');
     close.addEventListener('click', closeTaskModal);
@@ -218,14 +239,7 @@ function closeTaskModal() {
     let modal = document.getElementById('modal');
     modal.innerHTML = '';
 }
-function clearTaskUI() {
-    let taskDiv = document.querySelector('#taskUI');
-    taskDiv.innerHTML = '';
 
-
-    let taskBtnWrapper = document.querySelector('.new-task-wrapper');
-    taskBtnWrapper.innerHTML = '';
-}
 function submitTask() {
 
     let date = document.getElementById('dueDate');
@@ -251,19 +265,7 @@ function returnCurrTask(project, name) {
 }
 function makeTaskBtn(name, status) {
 
-    if(status === "LowPriority") {
-        status = document.getElementById('low-prio');
-    }
-    else if(status === "InProgress"){
-        status = document.getElementById('in-pro');
-    }
-    else if(status === "Completed"){
-        status = document.getElementById('complete');
-    }
-    else if(status === 4){
-        status = document.getElementById('due-soon');
-    }
-
+    status = getStatusID(status);
 
     let task = document.createElement('button');
 
@@ -275,6 +277,20 @@ function makeTaskBtn(name, status) {
     });
     status.appendChild(task);
 }
+
+function getStatusID(status) {
+    if(status === "LowPriority") {
+        status = document.getElementById('low-prio');
+    }
+    else if(status === "InProgress"){
+        status = document.getElementById('in-pro');
+    }
+    else if(status === "Completed"){
+        status = document.getElementById('complete');
+    }
+    return status;
+}
+
 
 function displayProjectsTasks() {    
         let activeProject = returnProject();
@@ -493,6 +509,8 @@ function howManyUncompleteTasks(project) {
     }
     return counter;
 }
+
+
 
 function initDOM() {
     newProject();
