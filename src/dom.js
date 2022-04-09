@@ -175,12 +175,6 @@ function makeTaskUI() {
 
         </div>
     </div>
-    <div class="p4">
-        <p class="header-p">due-soon</p>
-        <div id="due-soon" class="task-area">
-            
-        </div>
-    </div>
 </div>`;
 
 // probably put a function here that loads in each individual task thats in the project
@@ -267,7 +261,6 @@ function returnCurrTask(project, name) {
 function makeTaskBtn(name, status) {
 
     status = getStatusID(status);
-    console.log(status);
     let task = document.createElement('button');
 
     task.setAttribute('id', name);
@@ -289,25 +282,20 @@ function getStatusID(status) {
     else if(status === "Completed"){
         status = document.getElementById('complete');
     }
-    else {
-        console.log(status);
-        status = document.getElementById(status)
-    }
     return status;
 }
 
 function displayIfDueSoon(name, date) {
-    let dueBox = document.getElementById("due-soon");
-    if(date < 7) {
-        let dueSoonTaskDiv = document.createElement('div');
-        dueSoonTaskDiv.setAttribute('id', 'dueSoon');
-        dueSoonTaskDiv.classList.add('.dueSoon');
-        dueBox.appendChild(dueSoonTaskDiv);
-        makeTaskBtn(name, 'dueSoon');
+
+    if(date < 7) {       
+        let taskDiv = document.getElementById(name);
         
         let dueDate = document.createElement('p');
         if(date === 0) {
             dueDate.innerText = `Due Today!!!`;
+        }
+        else if(date === 1) {
+            dueDate.innerText = `Due Tommorow!`;
         }
         else if(date < 0) {
             dueDate.innerText = `Past due :[`;
@@ -316,7 +304,7 @@ function displayIfDueSoon(name, date) {
             dueDate.innerText = `due in ${date} days!`;
         }
         
-        dueSoonTaskDiv.appendChild(dueDate);
+        taskDiv.appendChild(dueDate);
 
     }
 }
@@ -451,6 +439,7 @@ function updateTask(task, e) {
     e.remove();
     updateTaskObject(task);
     makeTaskBtn(oldButtonID, task.Status);
+    displayIfDueSoon(task.Name, task.IsDueSoon);
     closeTaskModal();
     saveTaskmaster();
 }

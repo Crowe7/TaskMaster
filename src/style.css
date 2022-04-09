@@ -185,6 +185,9 @@ header h1{
     border-top-right-radius: 5px;
 }
 .task {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
     font-size: 12px;
     margin-top: 5px;
     border: none;
@@ -193,7 +196,7 @@ header h1{
     padding: 20px;
     text-align: left;
     max-width: 225px;
-    overflow: hidden;
+    overflow: overlay;
     overflow-wrap: break-word;
     border-radius: 5px;
     box-shadow: 1px 1px 5px steelblue;
