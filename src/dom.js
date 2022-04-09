@@ -1,4 +1,4 @@
-import { id } from "date-fns/locale";
+import { es, id } from "date-fns/locale";
 import {makeTask, makeProject, taskMaster} from "./index"
 import {saveTaskmaster} from "./storage";
 import parseISO from "date-fns/parseISO";
@@ -267,7 +267,7 @@ function returnCurrTask(project, name) {
 function makeTaskBtn(name, status) {
 
     status = getStatusID(status);
-
+    console.log(status);
     let task = document.createElement('button');
 
     task.setAttribute('id', name);
@@ -289,9 +289,37 @@ function getStatusID(status) {
     else if(status === "Completed"){
         status = document.getElementById('complete');
     }
+    else {
+        console.log(status);
+        status = document.getElementById(status)
+    }
     return status;
 }
 
+function displayIfDueSoon(name, date) {
+    let dueBox = document.getElementById("due-soon");
+    if(date < 7) {
+        let dueSoonTaskDiv = document.createElement('div');
+        dueSoonTaskDiv.setAttribute('id', 'dueSoon');
+        dueSoonTaskDiv.classList.add('.dueSoon');
+        dueBox.appendChild(dueSoonTaskDiv);
+        makeTaskBtn(name, 'dueSoon');
+        
+        let dueDate = document.createElement('p');
+        if(date === 0) {
+            dueDate.innerText = `Due Today!!!`;
+        }
+        else if(date < 0) {
+            dueDate.innerText = `Past due :[`;
+        }
+        else {
+            dueDate.innerText = `due in ${date} days!`;
+        }
+        
+        dueSoonTaskDiv.appendChild(dueDate);
+
+    }
+}
 
 function displayProjectsTasks() {    
         let activeProject = returnProject();
@@ -301,8 +329,8 @@ function displayProjectsTasks() {
         for(let j = 0; j < activeProject.Tasks.length; j++) {
             let currentTask = activeProject.Tasks[j];
             console.log(currentTask);
-            makeTaskBtn(currentTask.Name, currentTask.Status)
-                    // PUT THE CHECK FOR DUE SOON FUNCTION HERE!!
+            makeTaskBtn(currentTask.Name, currentTask.Status);
+            displayIfDueSoon(currentTask.Name, currentTask.IsDueSoon);
         }
     }
 

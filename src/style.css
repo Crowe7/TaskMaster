@@ -444,6 +444,18 @@ input[type=text]{
     color: white;
 }
 
+.dueSoon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 2px solid steelblue;
+}
+
+
+
+
+
+
 .content-wrapper{
     display: flex;
 
