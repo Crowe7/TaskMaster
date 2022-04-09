@@ -148,7 +148,6 @@ function submitProject() {
         saveTaskmaster();
         projectZone.innerHTML = '';
         newBtn.style.display = 'block';
-        console.log(taskMaster);
     }
 } 
 
@@ -244,7 +243,6 @@ function submitTask() {
         alert("Title Can't Be Blank!");
         return;
     }
-    console.log(returnActiveProjectName());
     makeTask(description, taskName.value, date.value, returnActiveProjectName(), "LowPriority");
     saveTaskmaster();
     makeTaskBtn(taskName.value, "LowPriority");
@@ -258,7 +256,7 @@ function returnCurrTask(project, name) {
         }
     }
 }
-function makeTaskBtn(name, status) {
+function makeTaskBtn(name, status, date) {
 
     status = getStatusID(status);
     let task = document.createElement('button');
@@ -270,6 +268,7 @@ function makeTaskBtn(name, status) {
         displayTaskInfo(task);
     });
     status.appendChild(task);
+    displayIfDueSoon(name, date, status);
 }
 
 function getStatusID(status) {
@@ -318,9 +317,7 @@ function displayProjectsTasks() {
         }
         for(let j = 0; j < activeProject.Tasks.length; j++) {
             let currentTask = activeProject.Tasks[j];
-            console.log(currentTask);
-            makeTaskBtn(currentTask.Name, currentTask.Status);
-            displayIfDueSoon(currentTask.Name, currentTask.IsDueSoon, currentTask.Status);
+            makeTaskBtn(currentTask.Name, currentTask.Status, currentTask.IsDueSoon);
         }
     }
 
