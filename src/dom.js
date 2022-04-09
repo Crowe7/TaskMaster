@@ -285,8 +285,7 @@ function getStatusID(status) {
     return status;
 }
 
-function displayIfDueSoon(name, date) {
-
+function displayIfDueSoon(name, date, status) {
     if(date < 7) {       
         let taskDiv = document.getElementById(name);
         
@@ -301,7 +300,10 @@ function displayIfDueSoon(name, date) {
             dueDate.innerText = `Past due :[`;
         }
         else {
-            dueDate.innerText = `due in ${date} days!`;
+            dueDate.innerText = `Due in ${date} days!`;
+        }
+        if(status === 'Completed') {
+            dueDate.innerText = '';
         }
         
         taskDiv.appendChild(dueDate);
@@ -318,7 +320,7 @@ function displayProjectsTasks() {
             let currentTask = activeProject.Tasks[j];
             console.log(currentTask);
             makeTaskBtn(currentTask.Name, currentTask.Status);
-            displayIfDueSoon(currentTask.Name, currentTask.IsDueSoon);
+            displayIfDueSoon(currentTask.Name, currentTask.IsDueSoon, currentTask.Status);
         }
     }
 
@@ -439,7 +441,7 @@ function updateTask(task, e) {
     e.remove();
     updateTaskObject(task);
     makeTaskBtn(oldButtonID, task.Status);
-    displayIfDueSoon(task.Name, task.IsDueSoon);
+    displayIfDueSoon(task.Name, task.IsDueSoon, task.Status);
     closeTaskModal();
     saveTaskmaster();
 }
