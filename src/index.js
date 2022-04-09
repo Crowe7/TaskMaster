@@ -1,6 +1,8 @@
 import './style.css';
 import {initDOM} from "./dom";
 import {loadTaskMaster, saveTaskmaster} from "./storage";
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
+import parseISO from 'date-fns/parseISO';
 // WE HAVE DATE-FNS TO IMPORT CERTAIN FUNCTIONS FROM!
 
 
@@ -53,6 +55,7 @@ class Task {
     Description = "";
     Status = "LowPriority"
     Date = undefined;
+    IsDueSoon = false;
 
     pushToProject(projectName, task) {
         for(let i = 0; i < taskMaster.Projects.length; i++) {
@@ -61,6 +64,11 @@ class Task {
             }
         }
     }
+
+    checkIfDueSoon(taskDate, currDate) {
+        return differenceInCalendarDays(taskDate, currDate);
+    }
+
 
 
 
@@ -72,9 +80,12 @@ function makeTask(description, name, date, projectName, status) {
     task.Date = date;
     task.Status = status;
     task.Description = description;
+    task.IsDueSoon = task.checkIfDueSoon(parseISO(date), new Date());
     task.pushToProject(projectName, task);
     console.log(task);
 }
+
+
 
 
 //loads page 
