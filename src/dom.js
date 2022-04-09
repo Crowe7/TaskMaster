@@ -1,6 +1,7 @@
 import { id } from "date-fns/locale";
 import {makeTask, makeProject, taskMaster} from "./index"
 import {saveTaskmaster} from "./storage";
+import parseISO from "date-fns/parseISO";
 function homeBtn() {
     let homeBtn = document.getElementById('homeBtn');
     homeBtn.addEventListener('click', makeHomeMenu);
@@ -412,7 +413,7 @@ function deleteTask(project, task, e) {
 function updateTaskObject(task) {
     let due = document.getElementById('dueDate');
     task.Date = due.value;
-
+    task.IsDueSoon = task.checkIfDueSoon(parseISO(due.value), new Date());
     task.Status = taskStatus();
 
 }
